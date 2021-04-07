@@ -77,7 +77,14 @@ class Vector<E> {
     }
 
     fun remove(index: Int): E{
-
+        if(index >= size)
+            throwIndexOutOfBoundsException(index, size)
+        val oldValue = elements[index] as E
+        val numMoved = size - index - 1
+        if(numMoved > 0)
+            System.arraycopy(elements, index + 1, elements, index, numMoved)
+        elements[--size] = null // clear to leat the Garbage Collector do its work
+        return oldValue
     }
 
     fun remove(element: E): Boolean{
