@@ -37,7 +37,23 @@ class Vector<E> {
     }
 
     fun add(index: Int, element: E){
+        var a = elements
+        val s = size
+        if(index > s || index < 0){
+            throwIndexOutOfBoundsException(index, s)
+        }
 
+        if(s < a.size){
+            System.arraycopy(a, index, a, index + 1, s - index)
+        }else{
+            val newArray = arrayOfNulls<Any>(newCapacity(s))
+            System.arraycopy(a, 0, newArray, 0, index)
+            System.arraycopy(a, index, newArray, index + 1, s - index)
+            a = newArray
+            elements = a
+            a[index] = element
+            size = s + 1
+        }
     }
 
     fun get(index: Int): E{
