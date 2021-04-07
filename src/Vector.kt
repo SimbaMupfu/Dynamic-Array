@@ -39,13 +39,19 @@ class Vector<E> {
     fun add(index: Int, element: E){
         var a = elements
         val s = size
+
+        //check array size first, if operation invalid then throw exception
         if(index > s || index < 0){
             throwIndexOutOfBoundsException(index, s)
         }
 
+        //if array has capacity, move every element from given index to its next index
         if(s < a.size){
             System.arraycopy(a, index, a, index + 1, s - index)
         }else{
+            //if array is full, create a larger array and the existing elements in two phases
+                //1. Copy elements from 0th index to the given index
+                //2. Copy elements from the next index to the last index
             val newArray = arrayOfNulls<Any>(newCapacity(s))
             System.arraycopy(a, 0, newArray, 0, index)
             System.arraycopy(a, index, newArray, index + 1, s - index)
@@ -57,7 +63,9 @@ class Vector<E> {
     }
 
     fun get(index: Int): E{
-
+        if(index >= size)
+            throwIndexOutOfBoundsException(index, size)
+        return elements[index] as E
     }
 
     fun set(index: Int, element: E): E{
