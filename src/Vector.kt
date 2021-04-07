@@ -21,7 +21,19 @@ class Vector<E> {
     }
 
     fun add(element: E): Boolean{
-
+        var a = elements
+        val s = size
+        if(s == a.size){
+            val newArray = arrayOfNulls<Any>(s + if(s < minCapacityIncrement /2){
+                minCapacityIncrement
+            }else{
+                s shr 1
+            })
+            System.arraycopy(a, 0, newArray, 0, s)
+        }
+        a[s] = element
+        size = s + 1
+        return true
     }
 
     fun add(index: Int, element: E){
