@@ -69,7 +69,11 @@ class Vector<E> {
     }
 
     fun set(index: Int, element: E): E{
-
+        if(index >= size)
+            throwIndexOutOfBoundsException(index, size)
+        val oldValue = elements[index] as E
+        elements[index] = element
+        return  oldValue
     }
 
     fun remove(index: Int): E{
