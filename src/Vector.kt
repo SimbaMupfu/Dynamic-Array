@@ -88,7 +88,16 @@ class Vector<E> {
     }
 
     fun remove(element: E): Boolean{
-
+        for(index in 0 until size){
+            if(element == elements[index]){
+                val numMoved = size - index - 1
+                if(numMoved > 0)
+                    System.arraycopy(elements, index + 1, elements, index, numMoved)
+                elements[--size] = null // clear to let Garbage Collector do its work
+                return true
+            }
+        }
+        return false
     }
 
     private fun newCapacity(currentCapacity: Int): Int{
